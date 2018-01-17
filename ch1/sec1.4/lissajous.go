@@ -1,4 +1,4 @@
-package main
+package lissajous
 
 import (
 	"image"
@@ -18,9 +18,9 @@ const (
 )
 
 func main() {
-	lissajous(os.Stdout)
+	Lissajous(os.Stdout)
 }
-func lissajous(out io.Writer) {
+func Lissajous(out io.Writer) {
 	const (
 		cycles = 5   // number of complete x oscillator revolutions
 		res  = 0.001 // angular resolution
@@ -47,7 +47,7 @@ func lissajous(out io.Writer) {
 		anim.Image = append(anim.Image, img)
 	}
 
-	f, _ := os.OpenFile("lissajous.gif", os.O_WRONLY | os.O_CREATE , 777)
-	defer f.Close()
-	gif.EncodeAll(f, &anim) // NOTE: ignoring encoding errors
+	//f, _ := os.OpenFile("lissajous.gif", os.O_WRONLY | os.O_CREATE , 777)
+	//defer f.Close()
+	gif.EncodeAll(out, &anim) // NOTE: ignoring encoding errors
 }
