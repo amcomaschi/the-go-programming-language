@@ -1,20 +1,25 @@
 package main
 
+/*
+Exercise 1.5: Change the Lissajous program’s color palette to green on black, for added authenticity.
+To create the web color #RRGGBB , use color.RGBA{0xRR, 0xGG, 0xBB, 0xff} , where each pair of hexadecimal digits
+represents the intensity of the red, green, or blue component of the pixel.*/
+
 import (
-	"image"
-	"image/color"
-	"image/gif"
-	"io"
-	"math"
-	"math/rand"
-	"os"
+"image"
+"image/color"
+"image/gif"
+"io"
+"math"
+"math/rand"
+"os"
 )
 
-var palette = []color.Color{color.Black, color.Black}
+var palette = []color.Color{color.Black, color.RGBA{100, 255, 0, 0}}
 
 const (
-	whiteIndex = 0 // first color in palette
-	blackIndex = 1 // next color in palette
+	blackIndex = 0 // first color in palette
+	greenIndex = 1 // next color in palette
 )
 
 func main() {
@@ -40,7 +45,7 @@ func lissajous(out io.Writer) {
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex)
+			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), greenIndex)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
@@ -51,3 +56,5 @@ func lissajous(out io.Writer) {
 	defer f.Close()
 	gif.EncodeAll(f, &anim) // NOTE: ignoring encoding errors
 }
+
+
